@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.app.models.Recruiter" %>
+<%@ page import="com.app.models.Candidate" %><%--
   Created by IntelliJ IDEA.
   User: najiy
   Date: 1/2/2022
@@ -12,6 +13,12 @@
                 class="relative h-14 items-center cursor-pointer my-auto ml-60"
         />
     </a>
+    <%  Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
+        Candidate candidate = (Candidate) session.getAttribute("candidate");
+        if (recruiter == null && candidate == null) {
+
+    %>
+
     <div class='flex space-x-4 items-center justify-end text-gray-600 mr-60'>
         <a href="Login.jsp" class=' ring-1 ring-green-500 cursor-pointer font-semibold bg-white py-2 px-4 hover:ring-green-600 font-body text-gray-500 rounded-full '>
             Log In
@@ -20,4 +27,20 @@
             Sign Up
         </a>
     </div>
+
+    <%
+        }
+        else{
+    %>
+    <div class='flex space-x-4 items-center justify-end text-gray-600 mr-60'>
+        <a href="Logout" class=' ring-1 ring-green-500 cursor-pointer font-semibold bg-white py-2 px-4 hover:ring-green-600 font-body text-gray-500 rounded-full '>
+            Log Out
+        </a>
+    </div>
+
+    <%
+        }
+    %>
+
 </header>
+

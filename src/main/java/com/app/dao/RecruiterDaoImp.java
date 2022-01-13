@@ -15,9 +15,11 @@ public class RecruiterDaoImp implements RecruiterDAO{
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
+    private DAOFactory daoFactory;
 
-    public RecruiterDaoImp() {
-        con = DatabaseConnection.getConnected();
+    public RecruiterDaoImp(DAOFactory daoFactory, Connection con) {
+        this.daoFactory= daoFactory;
+        this.con= con;
     }
 
     @Override

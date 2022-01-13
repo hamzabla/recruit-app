@@ -1,7 +1,6 @@
 package com.app.controllers;
 
-import com.app.dao.CandidateDaoImp;
-import com.app.dao.RecruiterDaoImp;
+import com.app.dao.*;
 import com.app.extra.DatabaseConnection;
 import com.app.extra.Strings;
 import com.app.models.Candidate;
@@ -11,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
@@ -28,10 +28,18 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
+        DAOFactory daoFactory=DAOFactory.getInstance();
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
-        RecruiterDaoImp recruiterDao = new RecruiterDaoImp();
-        CandidateDaoImp candidateDao = new CandidateDaoImp();
+        RecruiterDAO recruiterDao = null;
+        CandidateDAO candidateDao= null;
+        try {
+            recruiterDao = daoFactory.getRecruiterDAO();
+            candidateDao = daoFactory.getCandidateDAO();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         if(recruiterDao.verifyLogin(email, password) == 1) {
             Recruiter recruiter = new Recruiter();

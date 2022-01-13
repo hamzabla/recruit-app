@@ -1,7 +1,6 @@
 package com.app.controllers;
 
-import com.app.dao.CandidateDaoImp;
-import com.app.dao.RecruiterDaoImp;
+import com.app.dao.*;
 import com.app.extra.Strings;
 import com.app.models.Recruiter;
 
@@ -9,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "SignUpRec", value = "/SignUpRec")
 public class SignUpRec extends HttpServlet {
@@ -22,6 +22,7 @@ public class SignUpRec extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
+        DAOFactory daoFactory=DAOFactory.getInstance();
         String firstNameRec = (String) request.getParameter("firstname");
         String lastNameRec = (String) request.getParameter("lastname");
         String emailRec = (String) request.getParameter("email");
@@ -30,8 +31,15 @@ public class SignUpRec extends HttpServlet {
         String sexeRec = (String) request.getParameter("gender");
         String entrepriseRec = (String) request.getParameter("company");
         int experienceRec = (int) Integer.parseInt(request.getParameter("experience"));
-        RecruiterDaoImp recruiterDao = new RecruiterDaoImp();
+        RecruiterDAO recruiterDao = null;
+        try {
+            recruiterDao = daoFactory.getRecruiterDAO();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Recruiter recruiter= new Recruiter();
+
         if(passwordRec.equals(passwordRec2)==false){
             String error = Strings.ERROR_PASSWORD_INVALID;
             request.setAttribute("error", error);
