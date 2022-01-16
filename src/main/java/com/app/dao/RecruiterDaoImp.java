@@ -1,6 +1,5 @@
 package com.app.dao;
 
-import com.app.extra.DatabaseConnection;
 import com.app.models.Recruiter;
 
 import java.sql.Connection;

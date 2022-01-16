@@ -63,4 +63,12 @@ public class DAOFactory {
     public CandidateDAO getCandidateDAO() throws SQLException {
         return new CandidateDaoImp(this,this.getConnection());
     }
+    public PostDAO getPostDAO() throws SQLException{
+        return new PostDaoImp(this,this.getConnection());
+    }
+
+    public CategoryDAO getCategoryDAO() throws SQLException{
+        return new CategoryDaoImp(this,this.getConnection());
+    }
+
 }

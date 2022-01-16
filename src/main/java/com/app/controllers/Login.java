@@ -1,7 +1,6 @@
 package com.app.controllers;
 
 import com.app.dao.*;
-import com.app.extra.DatabaseConnection;
 import com.app.extra.Strings;
 import com.app.models.Candidate;
 import com.app.models.Recruiter;
