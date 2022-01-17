@@ -88,12 +88,12 @@ public class PostDaoImp implements PostDAO {
                 "on c.candidate_id=cp.candidate_id\n" +
                 "join categories as cg\n" +
                 "on cg.idCategory=cp.idCategory " +
-                "where idCategory=?";
+                "where cp.idCategory=?";
         try {
             ps= con.prepareStatement(query);
             ps.setInt(1,idCategory);
-            int i =ps.executeUpdate();
-            List<Post> postList = new ArrayList<>();
+            rs =ps.executeQuery();
+            List<Post> postListByCategory = new ArrayList<>();
             while (rs.next()) {
                 Post post = new Post(
                         rs.getInt(1),
@@ -105,9 +105,9 @@ public class PostDaoImp implements PostDAO {
                         rs.getString(7),
                         rs.getString(8)
                 );
-                postList.add(post);
+                postListByCategory.add(post);
             }
-            return postList;
+            return postListByCategory;
         } catch (Exception e) {
             System.out.println("Connection Error" + e);
         }

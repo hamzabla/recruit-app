@@ -53,7 +53,10 @@ public class CandidateDaoImp implements CandidateDAO {
                 candidate.setPasswordCan(rs.getString(5));
                 candidate.setSexeCan(rs.getString(6));
                 candidate.setTelephoneCan(rs.getString(7));
-
+                candidate.setImage(rs.getString(8));
+                candidate.setDescription(rs.getString(9));
+                candidate.setSchool(rs.getString(10));
+                candidate.setLocation(rs.getString(11));
                 return candidate;
             }else {
                 return null;

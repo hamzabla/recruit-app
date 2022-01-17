@@ -209,7 +209,9 @@
         </div>
 
         <%
-            List <Post> postList = (List<Post>) session.getAttribute("postList");
+            List <Post> postListAll = (List<Post>) session.getAttribute("postList");
+            List <Post> postListByCategory = (List<Post>) session.getAttribute("postListByCategory");
+            List <Post> postList = (postListByCategory==null) ? postListAll : postListByCategory;
             if (postList!=null){
                 for(int i=0;i<postList.size();i++){
         %>
@@ -233,9 +235,8 @@
                     </p>
                 </div>
                 <div class="w-1/2 outline-none">
-                    <video width="100%" controls autoplay>
-                        <source src=<%="videos/" + Paths.get(postList.get(i).getVideo()).getFileName().toString()%> type="video/mp4">
-                    </video>
+                    <iframe width="400" height="150" src=<%="videos/" + Paths.get(postList.get(i).getVideo()).getFileName().toString()%> frameborder="0"
+                            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -264,9 +265,9 @@
         %>
     </div>
 </div>
-<%@ include file="includes/Footer.jsp" %>
-</body>
 
+
+<%@ include file="includes/Footer.jsp" %>
 <script>
     var react = false;
     function toggleReact() {
@@ -300,4 +301,5 @@
         post_modal.classList.add("hidden");
     };
 </script>
+</body>
 </html>

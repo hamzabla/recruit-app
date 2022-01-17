@@ -3,13 +3,23 @@ package com.app.models;
 public class Category {
     private int idCategory;
     private String category;
+    private String categoryDesciption;
 
     public Category() {
     }
 
-    public Category(int idCategory, String category) {
+    public Category(int idCategory, String category, String categoryDesciption) {
         this.idCategory = idCategory;
         this.category = category;
+        this.categoryDesciption=categoryDesciption;
+    }
+
+    public String getCategoryDesciption() {
+        return categoryDesciption;
+    }
+
+    public void setCategoryDesciption(String categoryDesciption) {
+        this.categoryDesciption = categoryDesciption;
     }
 
     public int getIdCategory() {

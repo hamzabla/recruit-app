@@ -16,7 +16,6 @@ import java.util.List;
 public class GetAllPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher req;
         PostDAO postDAO =null;
         try{
             postDAO=DaoInstance.daoFactory.getPostDAO();
@@ -28,8 +27,7 @@ public class GetAllPost extends HttpServlet {
         List<Post> postList= postDAO.getAllPosts();
         HttpSession session= request.getSession();
         session.setAttribute("postList",postList);
-        req = request.getRequestDispatcher("Home.jsp");
-        req.forward(request, response);
+        response.sendRedirect("GetCategories");
 
     }
 

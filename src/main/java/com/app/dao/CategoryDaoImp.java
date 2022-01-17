@@ -33,7 +33,8 @@ public class CategoryDaoImp implements CategoryDAO {
             while (rs.next()) {
                 Category category = new Category(
                         rs.getInt(1),
-                        rs.getString(2)
+                        rs.getString(2),
+                        rs.getString(3)
                 );
                 categoryList.add(category);
             }

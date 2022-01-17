@@ -44,16 +44,18 @@ public class Login extends HttpServlet {
             recruiter  = recruiterDao.getRecruiterByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("recruiter", recruiter);
-            req = request.getRequestDispatcher("Home.jsp");
-            req.forward(request, response);
+            response.sendRedirect("GetAllPost");
+//            req = request.getRequestDispatcher("Home.jsp");
+//            req.forward(request, response);
 
         }else if(candidateDao.verifyLogin(email, password)==1){
             Candidate candidate = new Candidate();
             candidate  = candidateDao.getCandidateByEmail(email);
             HttpSession session = request.getSession();
             session.setAttribute("candidate", candidate);
-            req = request.getRequestDispatcher("Home.jsp");
-            req.forward(request, response);
+            response.sendRedirect("GetAllPost");
+//            req = request.getRequestDispatcher("Home.jsp");
+//            req.forward(request, response);
         }
         else if (recruiterDao.verifyLogin(email, password) == 0 || candidateDao.verifyLogin(email, password) == 0 )
         {

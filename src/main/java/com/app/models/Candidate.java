@@ -11,6 +11,10 @@ public class Candidate {
     private String sexeCan;
     private String telephoneCan;
     private String formationCan;
+    private String image;
+    private String description;
+    private String school;
+    private String location;
 
     public String getFormationCan() {
         return formationCan;
@@ -23,7 +27,7 @@ public class Candidate {
     public Candidate() {
     }
 
-    public Candidate(int idCan, String firstNameCan, String lastNameCan, String emailCan, String passwordCan, String sexeCan, String telephoneCan) {
+    public Candidate(int idCan, String firstNameCan, String lastNameCan, String emailCan, String passwordCan, String sexeCan, String telephoneCan, String formationCan, String image, String description, String school, String location) {
         this.idCan = idCan;
         this.firstNameCan = firstNameCan;
         this.lastNameCan = lastNameCan;
@@ -31,6 +35,43 @@ public class Candidate {
         this.passwordCan = passwordCan;
         this.sexeCan = sexeCan;
         this.telephoneCan = telephoneCan;
+        this.formationCan = formationCan;
+        this.image = image;
+        this.description = description;
+        this.school = school;
+        this.location = location;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public int getIdCan() {
