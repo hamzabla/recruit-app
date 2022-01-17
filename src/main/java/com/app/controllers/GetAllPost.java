@@ -17,10 +17,9 @@ public class GetAllPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
-        DAOFactory daoFactory=DAOFactory.getInstance();
         PostDAO postDAO =null;
         try{
-            postDAO=daoFactory.getPostDAO();
+            postDAO=DaoInstance.daoFactory.getPostDAO();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -41,5 +40,3 @@ public class GetAllPost extends HttpServlet {
 
     }
 }
-
-

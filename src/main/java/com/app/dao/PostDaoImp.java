@@ -30,8 +30,8 @@ public class PostDaoImp implements PostDAO {
             ps=con.prepareStatement(query);
             ps.setString(1,post.getPost());
             ps.setString(2,post.getVideo());
-            ps.setInt(3,post.getIdCandidat());
-            ps.setInt(4,post.getIdCategory());
+            ps.setInt(3,post.getIdCategory());
+            ps.setInt(4,post.getIdCandidat());
             int i=ps.executeUpdate();
             if (i>0)
                 return 1;
@@ -44,7 +44,15 @@ public class PostDaoImp implements PostDAO {
     }
 
     public List<Post> getAllPosts() {
-        query = "SELECT * from candidature_post";
+        query = "select cp.*,\n" +
+                "       c.firstname,\n" +
+                "       c.lastname,\n" +
+                "       cg.category\n" +
+                "from candidature_post as cp \n" +
+                "join candidate as c \n" +
+                "on c.candidate_id=cp.candidate_id\n" +
+                "join categories as cg\n" +
+                "on cg.idCategory=cp.idCategory;";
         try {
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
@@ -52,10 +60,13 @@ public class PostDaoImp implements PostDAO {
             while (rs.next()) {
                 Post post = new Post(
                         rs.getInt(1),
-                        rs.getInt(2),
+                        rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5)
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)
                 );
                 postList.add(post);
             }
@@ -66,8 +77,18 @@ public class PostDaoImp implements PostDAO {
         return null;
     }
 
+
     public List<Post> getAllPostsByCategory(int idCategory){
-        query = "SELECT * from candidature_post where idCategory=?";
+        query = "select cp.*,\n" +
+                "       c.firstname,\n" +
+                "       c.lastname,\n" +
+                "       cg.category\n" +
+                "from candidature_post as cp \n" +
+                "join candidate as c \n" +
+                "on c.candidate_id=cp.candidate_id\n" +
+                "join categories as cg\n" +
+                "on cg.idCategory=cp.idCategory " +
+                "where idCategory=?";
         try {
             ps= con.prepareStatement(query);
             ps.setInt(1,idCategory);
@@ -76,10 +97,13 @@ public class PostDaoImp implements PostDAO {
             while (rs.next()) {
                 Post post = new Post(
                         rs.getInt(1),
-                        rs.getInt(2),
+                        rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
-                        rs.getInt(5)
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)
                 );
                 postList.add(post);
             }

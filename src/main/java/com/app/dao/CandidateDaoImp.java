@@ -105,6 +105,20 @@ public class CandidateDaoImp implements CandidateDAO {
 
         return -1;
     }
+
+    public int hasPost(int id){
+        try {
+            ps=con.prepareStatement("SELECT * from candidature_post where candidate_id=?");
+            ps.setInt(1, id);
+            rs=ps.executeQuery();
+            if(rs.next())
+                return 1;
+            else
+                return 0;
+        }catch(Exception e) {
+            System.out.println("connexion error");
+        }
+
+        return -1;
+    }
 }
-
-

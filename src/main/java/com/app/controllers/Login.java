@@ -27,14 +27,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
-        DAOFactory daoFactory=DAOFactory.getInstance();
         String email = (String) request.getParameter("email");
         String password = (String) request.getParameter("password");
         RecruiterDAO recruiterDao = null;
         CandidateDAO candidateDao= null;
         try {
-            recruiterDao = daoFactory.getRecruiterDAO();
-            candidateDao = daoFactory.getCandidateDAO();
+            recruiterDao = DaoInstance.daoFactory.getRecruiterDAO();
+            candidateDao = DaoInstance.daoFactory.getCandidateDAO();
         } catch (SQLException e) {
             e.printStackTrace();
         }

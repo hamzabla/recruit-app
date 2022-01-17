@@ -16,7 +16,6 @@
     <%  Recruiter recruiter = (Recruiter) session.getAttribute("recruiter");
         Candidate candidate = (Candidate) session.getAttribute("candidate");
         if (recruiter == null && candidate == null) {
-
     %>
 
     <div class='flex space-x-4 items-center justify-end text-gray-600 mr-60'>
@@ -29,8 +28,8 @@
     </div>
 
     <%
-        }
-        else{
+    }
+    else{
     %>
     <div class='flex space-x-4 items-center justify-end text-gray-600 mr-60'>
         <a href="Logout" class=' ring-1 ring-green-500 cursor-pointer font-semibold bg-white py-2 px-4 hover:ring-green-600 font-body text-gray-500 rounded-full '>
@@ -43,4 +42,3 @@
     %>
 
 </header>
-

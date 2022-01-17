@@ -26,7 +26,6 @@ public class SignUpCan extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
-        DAOFactory daoFactory=DAOFactory.getInstance();
         String firstNameCan = (String) request.getParameter("firstname");
         String lastNameCan = (String) request.getParameter("lastname");
         String emailCan = (String) request.getParameter("email");
@@ -37,7 +36,7 @@ public class SignUpCan extends HttpServlet {
         String formationCan = (String) request.getParameter("formation");
         CandidateDAO candidateDao= null;
         try {
-            candidateDao = daoFactory.getCandidateDAO();
+            candidateDao = DaoInstance.daoFactory.getCandidateDAO();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,4 +72,3 @@ public class SignUpCan extends HttpServlet {
         }
     }
 }
-

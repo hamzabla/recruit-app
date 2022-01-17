@@ -7,16 +7,47 @@ public class Post {
     private String video;
     private int idCategory;
 
+    private String firstnameCand;
+    private String lastnameCand;
+    private String category;
+
     public Post() {
 
     }
 
-    public Post(int idPost, int idCandidat, String post, String video, int idCategory) {
+    public Post(int idPost, String post,String video,int idCategory, int idCandidat,   String firstnameCand, String lastnameCand, String category) {
         this.idPost = idPost;
         this.idCandidat = idCandidat;
         this.post = post;
         this.video = video;
         this.idCategory = idCategory;
+        this.firstnameCand = firstnameCand;
+        this.lastnameCand = lastnameCand;
+        this.category = category;
+    }
+
+    public String getFirstnameCand() {
+        return firstnameCand;
+    }
+
+    public void setFirstnameCand(String firstnameCand) {
+        this.firstnameCand = firstnameCand;
+    }
+
+    public String getLastnameCand() {
+        return lastnameCand;
+    }
+
+    public void setLastnameCand(String lastnameCand) {
+        this.lastnameCand = lastnameCand;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getIdPost() {

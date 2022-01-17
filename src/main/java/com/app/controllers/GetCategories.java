@@ -12,26 +12,23 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "GetCategories", value = "/Home.jsp")
+@WebServlet(name = "GetCategories", value = "/")
 public class GetCategories extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
-        DAOFactory daoFactory=DAOFactory.getInstance();
         CategoryDAO categoryDAO =null;
         try{
-            categoryDAO=daoFactory.getCategoryDAO();
+            categoryDAO=DaoInstance.daoFactory.getCategoryDAO();
         }
         catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("waaaaaaaaaaa");
         }
 
         List<Category> categoryList= categoryDAO.getCategories();
         HttpSession session= request.getSession();
         session.setAttribute("categoryList",categoryList);
         req = request.getRequestDispatcher("Home.jsp");
-        System.out.println(categoryList);
         req.forward(request, response);
     }
 

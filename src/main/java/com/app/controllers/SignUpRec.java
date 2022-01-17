@@ -22,7 +22,6 @@ public class SignUpRec extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher req;
-        DAOFactory daoFactory=DAOFactory.getInstance();
         String firstNameRec = (String) request.getParameter("firstname");
         String lastNameRec = (String) request.getParameter("lastname");
         String emailRec = (String) request.getParameter("email");
@@ -33,7 +32,7 @@ public class SignUpRec extends HttpServlet {
         int experienceRec = (int) Integer.parseInt(request.getParameter("experience"));
         RecruiterDAO recruiterDao = null;
         try {
-            recruiterDao = daoFactory.getRecruiterDAO();
+            recruiterDao = DaoInstance.daoFactory.getRecruiterDAO();
         } catch (SQLException e) {
             e.printStackTrace();
         }

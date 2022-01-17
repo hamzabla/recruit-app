@@ -29,7 +29,7 @@ public class DAOFactory {
      * Méthode chargée de récupérer les informations de connexion à la base de
      * données, charger le driver JDBC et retourner une instance de la Factory
      */
-    public static DAOFactory getInstance() throws com.app.dao.DAOConfigurationException {
+    public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
         String url = "jdbc:mysql://localhost:3306/project_s3";
         String driver = "com.mysql.jdbc.Driver";
@@ -41,7 +41,7 @@ public class DAOFactory {
             System.out.println(driver);
             Class.forName( driver );
         } catch ( ClassNotFoundException e ) {
-            throw new com.app.dao.DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
+            throw new DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
         }
 
         DAOFactory instance = new DAOFactory( url, user, password );
@@ -50,9 +50,18 @@ public class DAOFactory {
 
     /* Méthode chargée de fournir une connexion à la base de données */
     /* package */ Connection getConnection() throws SQLException {
-          return DriverManager.getConnection( url, username, password );
+        return DriverManager.getConnection( url, username, password );
     }
 
+    public static void releaseConnection(Connection con){
+        try {
+            con.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     /*
      * Méthodes de récupération de l'implémentation des différents DAO (un seul
      * pour le moment)

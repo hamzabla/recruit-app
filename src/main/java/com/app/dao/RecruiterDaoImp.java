@@ -95,7 +95,6 @@ public class RecruiterDaoImp implements RecruiterDAO{
         try {
             ps=con.prepareStatement("SELECT * from recruiter where email=?");
             ps.setString(1, email);
-
             rs=ps.executeQuery();
             if(rs.next())
                 return 1;

@@ -21,33 +21,28 @@ public class AddPost extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DAOFactory daoFactory=DAOFactory.getInstance();
-        int idPost = Integer.parseInt(request.getParameter("idPost"));
-        String postDescription = (String) request.getParameter("postDescription");
-        int idCategory = Integer.parseInt(request.getParameter("idCategory"));
+        String postDescription = (String) request.getParameter("post");
+        int idCategory = Integer.parseInt(request.getParameter("category"));
         Part VideoPart = request.getPart("video");
-
-        System.out.println("part is :"+VideoPart);
+        int idCandidate = Integer.parseInt(request.getParameter("idCandidate"));
         String videoFileName= extractFileName(VideoPart);
-        System.out.println(videoFileName);
         String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator + videoFileName;
-        System.out.println(savePath);
         File fileSaveDir= new File(savePath);
         VideoPart.write(savePath+File.separator);
-
         PostDAO postDAO =null;
         try{
-            postDAO=daoFactory.getPostDAO();
+            postDAO=DaoInstance.daoFactory.getPostDAO();
+            System.out.println(idCandidate+ " " +idCategory);
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
 
         Post post =new Post();
-        post.setIdPost(idPost);
         post.setPost(postDescription);
         post.setVideo(savePath);
         post.setIdCategory(idCategory);
+        post.setIdCandidat(idCandidate);
         postDAO.addPost(post);
         response.sendRedirect("Home.jsp");
     }

@@ -23,7 +23,7 @@ public class UpdatePost extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DAOFactory daoFactory=DAOFactory.getInstance();
+
         int idPost = Integer.parseInt(request.getParameter("idPost"));
         String postDescription = (String) request.getParameter("postDescription");
         int idCategory = Integer.parseInt(request.getParameter("idCategory"));
@@ -39,7 +39,7 @@ public class UpdatePost extends HttpServlet {
 
         PostDAO postDAO =null;
         try{
-            postDAO=daoFactory.getPostDAO();
+            postDAO=DaoInstance.daoFactory.getPostDAO();
         }
         catch (SQLException e) {
             e.printStackTrace();
