@@ -2,9 +2,8 @@ package com.app.controllers;
 
 import com.app.dao.CategoryDAO;
 import com.app.dao.DAOFactory;
-import com.app.dao.PostDAO;
 import com.app.models.Category;
-import com.app.models.Post;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,12 +24,14 @@ public class GetCategories extends HttpServlet {
         }
         catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("waaaaaaaaaaa");
         }
 
         List<Category> categoryList= categoryDAO.getCategories();
         HttpSession session= request.getSession();
         session.setAttribute("categoryList",categoryList);
         req = request.getRequestDispatcher("Home.jsp");
+        System.out.println(categoryList);
         req.forward(request, response);
     }
 
