@@ -105,6 +105,7 @@
                               Dashboard
                           </span>
                     </a>
+                    <% if(candidate!=null){%>
                     <a onclick="openModal()"
                        class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
                           <span class="text-left">
@@ -116,6 +117,7 @@
                               Add Candidature
                           </span>
                     </a>
+                    <%}%>
                     <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
                           <span class="text-left">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
@@ -134,6 +136,16 @@
                           </span>
                         <span class="mx-4 text-sm font-normal">
                               Categories
+                          </span>
+                    </a>
+                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
+                          <span class="text-left">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                              </svg>
+                          </span>
+                        <span class="mx-4 text-sm font-normal">
+                              Conversations
                           </span>
                     </a>
                 </div>
@@ -323,7 +335,7 @@
         <%--Start of evaluation zone for recruiter--%>
         <% if(recruiter!=null){ %>
         <div class="flex flex-col bg-white ml-4 w-full rounded-2xl shadow-lg  text-center py-8 px-8 md:px-12 ">
-            <h2 class="text-2xl font-semibold text-gray-800 md:text-3xl">Did Find This Profile <span class="text-emerald-600">Interesting?</span></h2>
+            <h2 class="text-2xl font-semibold text-gray-800 md:text-3xl">Did You Find This Profile <span class="text-emerald-600">Interesting?</span></h2>
             <div class="flex justify-around mt-6">
                 <a class=" bg-green-500 h-12 w-12 flex items-center justify-center text-white  rounded-full hover:bg-green-400" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-9" viewBox="0 0 20 20" fill="currentColor">
