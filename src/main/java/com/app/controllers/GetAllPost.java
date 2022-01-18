@@ -17,6 +17,8 @@ public class GetAllPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PostDAO postDAO =null;
+        String numPostQuery = request.getParameter("numPost");
+        int numPost=0;
         try{
             postDAO=DaoInstance.daoFactory.getPostDAO();
         }
@@ -26,8 +28,16 @@ public class GetAllPost extends HttpServlet {
 
         List<Post> postList= postDAO.getAllPosts();
         HttpSession session= request.getSession();
-        session.setAttribute("postList",postList);
-        response.sendRedirect("GetCategories");
+        if(numPostQuery!=null){
+            numPost=Integer.parseInt(numPostQuery);
+            session.setAttribute("numPost",numPost);
+            response.sendRedirect("Home.jsp?numPost="+numPost);
+        }
+        else{
+            session.setAttribute("numPost",numPost);
+            session.setAttribute("postList",postList);
+            response.sendRedirect("GetCategories");
+        }
 
     }
 

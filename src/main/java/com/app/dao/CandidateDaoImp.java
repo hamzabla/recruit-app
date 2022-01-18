@@ -53,10 +53,11 @@ public class CandidateDaoImp implements CandidateDAO {
                 candidate.setPasswordCan(rs.getString(5));
                 candidate.setSexeCan(rs.getString(6));
                 candidate.setTelephoneCan(rs.getString(7));
-                candidate.setImage(rs.getString(8));
-                candidate.setDescription(rs.getString(9));
-                candidate.setSchool(rs.getString(10));
-                candidate.setLocation(rs.getString(11));
+                candidate.setFormationCan(rs.getString(8));
+                candidate.setImage(rs.getString(9));
+                candidate.setDescription(rs.getString(10));
+                candidate.setSchool(rs.getString(11));
+                candidate.setLocation(rs.getString(12));
                 return candidate;
             }else {
                 return null;
@@ -124,4 +125,36 @@ public class CandidateDaoImp implements CandidateDAO {
 
         return -1;
     }
+
+    public Candidate getCandidateById(int idCandidat){
+        try {
+            query ="SELECT * from candidate where candidate_id=?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,idCandidat);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                Candidate candidate = new Candidate();
+                candidate.setIdCan(rs.getInt(1));
+                candidate.setFirstNameCan(rs.getString(2));
+                candidate.setLastNameCan(rs.getString(3));
+                candidate.setEmailCan(rs.getString(4));
+                candidate.setPasswordCan(rs.getString(5));
+                candidate.setSexeCan(rs.getString(6));
+                candidate.setTelephoneCan(rs.getString(7));
+                candidate.setFormationCan(rs.getString(8));
+                candidate.setImage(rs.getString(9));
+                candidate.setDescription(rs.getString(10));
+                candidate.setSchool(rs.getString(11));
+                candidate.setLocation(rs.getString(12));
+                return candidate;
+            }else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return null;
+    }
+
+
 }

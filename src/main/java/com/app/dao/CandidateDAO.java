@@ -9,4 +9,5 @@ public interface CandidateDAO {
     public int addCandidate(Candidate candidate);
     public int emailExist(String email);
     public int hasPost(int id);
+    public Candidate getCandidateById(int idCandidat);
 }
