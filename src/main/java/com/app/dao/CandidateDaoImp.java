@@ -71,7 +71,7 @@ public class CandidateDaoImp implements CandidateDAO {
     @Override
     public int addCandidate(Candidate candidate) {
         try {
-            query="INSERT INTO candidate Values (null, ?, ?, ?, ?, ?, ?, ?)";
+            query="INSERT INTO candidate Values (null, ?, ?, ?, ?, ?, ?, ?, null,null,null,null)";
             ps=con.prepareStatement(query);
             ps.setString(1,candidate.getFirstNameCan());
             ps.setString(2,candidate.getLastNameCan());
@@ -154,6 +154,31 @@ public class CandidateDaoImp implements CandidateDAO {
             System.out.println("Error");
         }
         return null;
+    }
+
+    public int updateCandidate(Candidate candidate){
+        query="UPDATE candidate SET password=?, formation=?, img=?, description=?, school=?, location=? WHERE candidate_id=?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,candidate.getPasswordCan());
+            ps.setString(2,candidate.getFormationCan());
+            ps.setString(3,candidate.getImage());
+            ps.setString(4,candidate.getDescription());
+            ps.setString(5,candidate.getSchool());
+            ps.setString(6,candidate.getLocation());
+            ps.setInt(7,candidate.getIdCan());
+            int i =ps.executeUpdate();
+            if(i>0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Connection Error"+e);
+        }
+        return -1;
     }
 
 

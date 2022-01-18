@@ -11,11 +11,13 @@ public class Recruiter {
     private String sexeRec;
     private String entrepriseRec;
     private int experienceRec;
+    private String descriptionRec;
+    private String img;
 
     public Recruiter() {
     }
 
-    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec, String sexeRec, String entrepriseRec, int experienceRec) {
+    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec,String entrepriseRec, String sexeRec,  int experienceRec,String descriptionRec,String img) {
         this.idRec = idRec;
         this.firstNameRec = firstNameRec;
         this.lastNameRec = lastNameRec;
@@ -24,6 +26,24 @@ public class Recruiter {
         this.sexeRec = sexeRec;
         this.entrepriseRec = entrepriseRec;
         this.experienceRec = experienceRec;
+        this.descriptionRec=descriptionRec;
+        this.img=img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getDescriptionRec() {
+        return descriptionRec;
+    }
+
+    public void setDescriptionRec(String descriptionRec) {
+        this.descriptionRec = descriptionRec;
     }
 
     public int getIdRec() {

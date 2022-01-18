@@ -53,6 +53,11 @@
 
 <body class="bg-gray-100 h-screen">
 <%@ include file="includes/Header.jsp" %>
+<%
+    List <Post> postListAll = (List<Post>) session.getAttribute("postList");
+    List <Post> postListByCategory = (List<Post>) session.getAttribute("postListByCategory");
+    List <Post> postList = (postListByCategory==null) ? postListAll : postListByCategory;
+%>
 <div class="max-w-8xl mx-auto flex items-start justify-center">
     <div class="h-[800px] block my-4 ml-4 rounded-2xl shadow-lg relative w-80">
         <div class="bg-white h-full rounded-2xl ">
@@ -113,12 +118,23 @@
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                               </svg>
                           </span>
+                       <%
+                           CandidateDAO candidateDAO=null;
+                           try{
+                               candidateDAO=DaoInstance.daoFactory.getCandidateDAO();
+                           }
+                           catch (SQLException e) {
+                               e.printStackTrace();
+                           }
+                           int hasPost=(candidate!=null) ? candidateDAO.hasPost(candidate.getIdCan()) : -1;
+                       %>
                         <span class="mx-4 text-sm font-normal">
-                              Add Candidature
+                              <%=(hasPost==0)? "Add": "Edit" %> Candidature
                           </span>
                     </a>
                     <%}%>
-                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
+                   <% if(candidate!=null){%>
+                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="GetProfileCand?idCandidat=<%=candidate.getIdCan()%>">
                           <span class="text-left">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
@@ -128,7 +144,23 @@
                               Profile
                           </span>
                     </a>
-                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
+                    <%
+                        }else if(recruiter!=null){
+                    %>
+                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="GetProfileRec?idRecruiter=<%=recruiter.getIdRec()%>">
+                          <span class="text-left">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                              </svg>
+                          </span>
+                        <span class="mx-4 text-sm font-normal">
+                              Profile
+                          </span>
+                    </a>
+                    <%
+                        }
+                    %>
+                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="categories.jsp">
                           <span class="text-left">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
@@ -146,6 +178,16 @@
                           </span>
                         <span class="mx-4 text-sm font-normal">
                               Conversations
+                          </span>
+                    </a>
+                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
+                          <span class="text-left">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                              </svg>
+                          </span>
+                        <span class="mx-4 text-sm font-normal">
+                              See Recruiters Profile's
                           </span>
                     </a>
                 </div>
@@ -176,6 +218,17 @@
                         </svg>
                     </button>
                 </div>
+                <%
+                    CandidateDAO candidateDAO=null;
+                    try{
+                        candidateDAO=DaoInstance.daoFactory.getCandidateDAO();
+                    }
+                    catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    int hasPost=(candidate!=null) ? candidateDAO.hasPost(candidate.getIdCan()) : -1;
+                   if(hasPost==0){
+                %>
                 <form method="post" action="AddPost" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                       enctype="multipart/form-data">
                     <h3 class="text-xl font-medium text-white">Add your candidature post :</h3>
@@ -230,6 +283,72 @@
                         Post Your Candidature
                     </button>
                 </form>
+                <%}else if(hasPost==1){
+                       Post currentPost=null;
+                       for(int i=0;i<postList.size();i++){
+                           if(postList.get(i).getIdCandidat()==candidate.getIdCan()) {
+                               currentPost=postList.get(i);
+                               break;
+                           }
+                           }
+                %>
+                <form method="post" action="UpdatePost" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
+                      enctype="multipart/form-data">
+                    <h3 class="text-xl font-medium text-white">Edit your candidature post :</h3>
+                    <div>
+                        <label for="post"
+                               class="block mb-2 text-sm font-medium text-gray-300">
+                            Describe Yourself</label>
+                        <textarea type="text" name="post" id="post1"
+                                  class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
+                                  placeholder="<%=currentPost.getPost()%>" required ></textarea>
+                    </div>
+                    <div>
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-400">
+                            Select your category
+                        </label>
+                        <select id="category1"
+                                name="category"
+                                class=" border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            <option value="" selected>Choose your category</option>
+                            <%
+                                if (categoryList!=null){
+                                    for(int i=0;i<categoryList.size();i++){
+                            %>
+                            <option value="<%=categoryList.get(i).getIdCategory()%>" ><%=categoryList.get(i).getCategory()%></option>
+                            <%
+                                    } }
+                            %>
+
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                               for="video" >
+                            Insert Video
+                        </label>
+                        <input type="file" name="video" value="<%=currentPost.getVideo()%>" id="video1" class="block w-full text-sm text-gray-500
+                                      file:mr-4 file:py-2 file:px-4
+                                      file:rounded-full file:border-0
+                                      file:text-sm file:font-semibold
+                                      file:bg-green-50 file:text-emerald-700
+                                      hover:file:bg-sky-100
+                                    " required/>
+                    </div>
+
+                    <input type="hidden" name="idCandidate"
+                           value=<%=candidate.getIdCan()%>
+                    >
+
+                    <button type="submit"
+                            class="w-full text-white focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-emerald-700 hover:bg-emerald-600 focus:ring-green-700">
+                        Post Your Candidature
+                    </button>
+                </form>
+                <%
+                    }
+                %>
             </div>
         </div>
     </div>
@@ -240,9 +359,7 @@
 
     <%--Start of candidate posts --%>
     <%
-        List <Post> postListAll = (List<Post>) session.getAttribute("postList");
-        List <Post> postListByCategory = (List<Post>) session.getAttribute("postListByCategory");
-        List <Post> postList = (postListByCategory==null) ? postListAll : postListByCategory;
+
         if (postList!=null){
             int i=  (int) session.getAttribute("numPost");
     %>

@@ -1,5 +1,4 @@
-<%@ page import="com.app.models.Candidate" %>
-<%@ page import="java.nio.file.Paths" %><%--
+<%@ page import="com.app.models.Candidate" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 18/01/2022
@@ -65,32 +64,32 @@
 </section>
 <section class="relative py-16 bg-blueGray-200">
     <%
-        Candidate candidatePrf = (Candidate) session.getAttribute("candidatePrf");
+        Recruiter recruiterPrf = (Recruiter) session.getAttribute("recruiterPrf");
     %>
     <div class="container mx-auto px-4">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
             <div class="px-6">
                 <div class="flex flex-wrap justify-center">
                     <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                        <% if (candidatePrf.getImage()!=null)
+                        <% if (recruiterPrf.getImg()!=null)
                         {
                         %>
                         <div class="relative">
-                            <img src="<%="img/" + Paths.get(candidatePrf.getImage()).getFileName().toString()%>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="<%=recruiterPrf.getImg()%>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <% }else
                         {
                         %>
                         <div class="relative">
-                            <img src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <%
-                        }
+                            }
                         %>
                     </div>
-                    <% if(candidate!=null){
-                        if (candidatePrf.getIdCan()==candidate.getIdCan())
-                    {
+                    <% if(recruiter!=null){
+                        if (recruiterPrf.getIdRec()==recruiter.getIdRec())
+                        {
                     %>
                     <!--start edit -->
                     <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -120,12 +119,11 @@
                                         <form method="post" action="UpdateProfileCan" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                                               enctype="multipart/form-data">
                                             <h3 class="text-xl font-medium text-white">Update Your Profile :</h3>
-                                             <input  value="<%=candidate.getIdCan()%>" name="idCandidate" hidden/>
                                             <div>
                                                 <label for="password"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
                                                     Your Password</label>
-                                                <input type="password" name="password" id="password" value="<%=candidate.getPasswordCan()%>"
+                                                <input type="password" name="password" id="password"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                                        placeholder="Enter new password" required />
                                             </div>
@@ -133,7 +131,7 @@
                                                 <label for="location"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
                                                     Your Location</label>
-                                                <input type="text" name="location" id="location" value="<%=candidate.getLocation()%>"
+                                                <input type="text" name="location" id="location"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                                        placeholder="Enter your whereabouts" required />
                                             </div>
@@ -141,7 +139,7 @@
                                                 <label for="formation"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
                                                     Your degree</label>
-                                                <input type="text" name="formation" id="formation" value="<%=candidate.getFormationCan()%>"
+                                                <input type="text" name="formation" id="formation"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                                        placeholder="Enter your degree or formation" required />
                                             </div>
@@ -149,7 +147,7 @@
                                                 <label for="school"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
                                                     Your School</label>
-                                                <input type="text" name="school" id="school" value="<%=candidate.getSchool()%>"
+                                                <input type="text" name="school" id="school"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                                        placeholder="Enter your degree or formation" required />
                                             </div>
@@ -186,7 +184,7 @@
                     </div>
                     <!--end edit profile-->
                     <%
-                        }
+                            }
                         }
                     %>
                     <div class=" w-full lg:w-4/12 px-4 lg:order-1">
@@ -195,27 +193,23 @@
 
                 <div class="text-center mt-12">
                     <h3 class="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
-                       <%=candidatePrf.getFirstNameCan()%> <%=candidatePrf.getLastNameCan()%>
+                        <%=recruiterPrf.getFirstNameRec()%> <%=recruiterPrf.getLastNameRec()%>
                     </h3>
-                    <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                        <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                        <%=candidatePrf.getLocation()%>
-                    </div>
                     <div class="mb-2 text-blueGray-600 mt-10">
-                        <i class="fas fa-graduation-cap mr-2 text-lg text-blueGray-400"></i><%=candidatePrf.getFormationCan()%>
+                        <i class="fas fa-graduation-cap mr-2 text-lg text-blueGray-400"></i><%=recruiterPrf.getExperienceRec()%> years of experience
                     </div>
                     <div class="mb-2 text-blueGray-600">
-                        <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i><%=candidatePrf.getSchool()%>
+                        <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>Work at : <%=recruiterPrf.getEntrepriseRec()%>
                     </div>
                     <div class="mb-2 text-blueGray-600">
-                        <i class="fas fa-venus-mars mr-2 text-lg text-blueGray-400"></i><%=candidatePrf.getSexeCan()%>
+                        <i class="fas fa-venus-mars mr-2 text-lg text-blueGray-400"></i><%=recruiterPrf.getSexeRec()%>
                     </div>
                 </div>
                 <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
                     <div class="flex flex-wrap justify-center">
                         <div class="w-full lg:w-9/12 px-4">
                             <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                <%=candidatePrf.getDescription()%>
+                                <%=recruiterPrf.getDescriptionRec()%>
                             </p>
                         </div>
                     </div>

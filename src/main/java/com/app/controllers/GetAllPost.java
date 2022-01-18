@@ -1,7 +1,9 @@
 package com.app.controllers;
 
+import com.app.dao.CandidateDAO;
 import com.app.dao.DAOFactory;
 import com.app.dao.PostDAO;
+import com.app.models.Candidate;
 import com.app.models.Post;
 
 import javax.servlet.*;
@@ -28,6 +30,7 @@ public class GetAllPost extends HttpServlet {
 
         List<Post> postList= postDAO.getAllPosts();
         HttpSession session= request.getSession();
+
         if(numPostQuery!=null){
             numPost=Integer.parseInt(numPostQuery);
             session.setAttribute("numPost",numPost);

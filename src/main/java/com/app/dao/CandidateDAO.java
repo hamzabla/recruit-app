@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import com.app.models.Candidate;
+import com.app.models.Post;
 import com.app.models.Recruiter;
 
 public interface CandidateDAO {
@@ -10,4 +11,6 @@ public interface CandidateDAO {
     public int emailExist(String email);
     public int hasPost(int id);
     public Candidate getCandidateById(int idCandidat);
+    public int updateCandidate(Candidate candidate);
 }
+

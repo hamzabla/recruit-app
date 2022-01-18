@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.models.Candidate;
 import com.app.models.Recruiter;
 
 import java.sql.Connection;
@@ -52,8 +53,8 @@ public class RecruiterDaoImp implements RecruiterDAO{
                 recruiter.setLastNameRec(rs.getString(3));
                 recruiter.setEmailRec(rs.getString(4));
                 recruiter.setPasswordRec(rs.getString(5));
-                recruiter.setSexeRec(rs.getString(6));
-                recruiter.setEntrepriseRec(rs.getString(7));
+                recruiter.setEntrepriseRec(rs.getString(6));
+                recruiter.setSexeRec(rs.getString(7));
                 recruiter.setExperienceRec(rs.getInt(8));
 
                 return recruiter;
@@ -106,4 +107,32 @@ public class RecruiterDaoImp implements RecruiterDAO{
 
         return -1;
     }
+
+    public Recruiter getRecruiterById(int idRecuiter){
+        try {
+            query ="SELECT * from recruiter where recruiter_id=?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,idRecuiter);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                Recruiter recruiter = new Recruiter();
+                recruiter.setIdRec(rs.getInt(1));
+                recruiter.setFirstNameRec(rs.getString(2));
+                recruiter.setLastNameRec(rs.getString(3));
+                recruiter.setEmailRec(rs.getString(4));
+                recruiter.setPasswordRec(rs.getString(5));
+                recruiter.setEntrepriseRec(rs.getString(6));
+                recruiter.setSexeRec(rs.getString(7));
+                recruiter.setExperienceRec(rs.getInt(8));
+                recruiter.setDescriptionRec(rs.getString(9));
+                return recruiter;
+            }else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return null;
+    }
+
 }

@@ -32,7 +32,6 @@ public class AddPost extends HttpServlet {
         PostDAO postDAO =null;
         try{
             postDAO=DaoInstance.daoFactory.getPostDAO();
-            System.out.println(idCandidate+ " " +idCategory);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -44,7 +43,7 @@ public class AddPost extends HttpServlet {
         post.setIdCategory(idCategory);
         post.setIdCandidat(idCandidate);
         postDAO.addPost(post);
-        response.sendRedirect("Home.jsp");
+        response.sendRedirect("GetAllPost");
     }
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
