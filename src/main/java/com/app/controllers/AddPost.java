@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 
 @WebServlet(name = "AddPost", value = "/AddPost")
@@ -25,10 +26,17 @@ public class AddPost extends HttpServlet {
         int idCategory = Integer.parseInt(request.getParameter("category"));
         Part VideoPart = request.getPart("video");
         int idCandidate = Integer.parseInt(request.getParameter("idCandidate"));
+
         String videoFileName= extractFileName(VideoPart);
-        String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator + videoFileName;
+        String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator+idCandidate + videoFileName;
+        String savePath2= "C:\\Users\\user\\IdeaProjects\\recruit-app\\target\\recruit-app-1.0-SNAPSHOT\\videos"+ File.separator+idCandidate + videoFileName;
+        System.out.println(savePath);
         File fileSaveDir= new File(savePath);
-        VideoPart.write(savePath+File.separator);
+        if(fileSaveDir.exists()!=true) {
+            VideoPart.write(savePath + File.separator);
+            File fileSaveDir2= new File(savePath2);
+            copyFile(fileSaveDir, fileSaveDir2);
+        }
         PostDAO postDAO =null;
         try{
             postDAO=DaoInstance.daoFactory.getPostDAO();
@@ -54,5 +62,8 @@ public class AddPost extends HttpServlet {
             }
         }
         return "";
+    }
+    private static void copyFile(File source, File dest) throws IOException {
+        Files.copy(source.toPath(), dest.toPath());
     }
 }

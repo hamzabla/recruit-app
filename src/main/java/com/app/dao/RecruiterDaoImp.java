@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecruiterDaoImp implements RecruiterDAO{
 
@@ -131,6 +133,37 @@ public class RecruiterDaoImp implements RecruiterDAO{
             }
         } catch (Exception e) {
             System.out.println("Error");
+        }
+        return null;
+    }
+
+    public List<Recruiter> getAllRecruiters() {
+        query = "SELECT * from recruiter";
+        try {
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<Recruiter> recruiters = new ArrayList<Recruiter>();
+            while (rs.next()) {
+                Recruiter recruiter = new Recruiter(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14));
+                recruiters.add(recruiter);
+            }
+            return recruiters;
+        } catch (Exception e) {
+            System.out.println("Connection Error" + e);
         }
         return null;
     }

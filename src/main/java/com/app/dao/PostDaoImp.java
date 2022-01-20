@@ -44,14 +44,7 @@ public class PostDaoImp implements PostDAO {
     }
 
     public List<Post> getAllPosts() {
-        query = "select cp.*,\n" +
-                "       c.firstname,\n" +
-                "       c.lastname,\n" +
-                "       cg.category\n" +
-                "from candidature_post as cp \n" +
-                "join candidate as c \n" +
-                "on c.candidate_id=cp.candidate_id\n" +
-                "join categories as cg\n" +
+        query =" select cp.*,c.firstname,c.lastname,cg.category,c.img from candidature_post as cp join candidate as c on c.candidate_id=cp.candidate_id join categories as cg\n" +
                 "on cg.idCategory=cp.idCategory;";
         try {
             ps = con.prepareStatement(query);
@@ -66,7 +59,8 @@ public class PostDaoImp implements PostDAO {
                         rs.getInt(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getString(9)
                 );
                 postList.add(post);
             }
@@ -79,16 +73,8 @@ public class PostDaoImp implements PostDAO {
 
 
     public List<Post> getAllPostsByCategory(int idCategory){
-        query = "select cp.*,\n" +
-                "       c.firstname,\n" +
-                "       c.lastname,\n" +
-                "       cg.category\n" +
-                "from candidature_post as cp \n" +
-                "join candidate as c \n" +
-                "on c.candidate_id=cp.candidate_id\n" +
-                "join categories as cg\n" +
-                "on cg.idCategory=cp.idCategory " +
-                "where cp.idCategory=?";
+        query = "select cp.*,c.firstname,c.lastname,cg.category,c.img from candidature_post as cp join candidate as c on c.candidate_id=cp.candidate_id join categories as cg on cg.idCategory=cp.idCategory where cp.idCategory=?;";
+
         try {
             ps= con.prepareStatement(query);
             ps.setInt(1,idCategory);
@@ -103,7 +89,8 @@ public class PostDaoImp implements PostDAO {
                         rs.getInt(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getString(9)
                 );
                 postListByCategory.add(post);
             }

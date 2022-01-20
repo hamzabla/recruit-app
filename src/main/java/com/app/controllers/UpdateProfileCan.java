@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 
 @WebServlet(name = "UpdateProfileCan", value = "/UpdateProfileCan")
@@ -31,13 +32,17 @@ public class UpdateProfileCan extends HttpServlet {
         String description= (String) request.getParameter("description");
 
         Part ImgPart = request.getPart("image");
-        System.out.println("part is :"+ImgPart);
         String imageFileName= extractFileName(ImgPart);
-        System.out.println(imageFileName);
-        String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\img"+ File.separator + imageFileName;
+        String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\img"+ File.separator+idCandidate + imageFileName;
+        String savePath2= "C:\\Users\\user\\IdeaProjects\\recruit-app\\target\\recruit-app-1.0-SNAPSHOT\\img"+ File.separator+idCandidate + imageFileName;
         System.out.println(savePath);
         File fileSaveDir= new File(savePath);
-        ImgPart.write(savePath+File.separator);
+        if(fileSaveDir.exists()!=true) {
+            ImgPart.write(savePath + File.separator);
+            File fileSaveDir2= new File(savePath2);
+            copyFile(fileSaveDir, fileSaveDir2);
+        }
+
 
         CandidateDAO candidateDAO =null;
         try{
@@ -68,5 +73,8 @@ public class UpdateProfileCan extends HttpServlet {
             }
         }
         return "";
+    }
+    private static void copyFile(File source, File dest) throws IOException {
+        Files.copy(source.toPath(), dest.toPath());
     }
 }

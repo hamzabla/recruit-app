@@ -65,11 +65,20 @@
                 <a href="#" class=" group block">
                     <div class="flex items-center">
                         <% if(recruiter!=null){
+                            if(recruiter.getImg()!=null)
+                            {
+                                String filename= Paths.get(recruiter.getImg()).getFileName().toString();
                         %>
+                        <div>
+                            <img class="inline-block h-12 w-12 rounded-full"
+                                 src="img/<%=filename%>" >
+                        </div>
+                        <%}else{%>
                         <div>
                             <img class="inline-block h-12 w-12 rounded-full"
                                  src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" >
                         </div>
+                        <%}%>
                         <div class="ml-3">
                             <p class="text-base leading-6 font-medium text-gray-800">
                                 <% out.println(recruiter.getFirstNameRec() + " " + recruiter.getLastNameRec()); %>
@@ -80,11 +89,20 @@
                         </div>
                         <% } %>
                         <% if(candidate!=null){
+                           if(candidate.getImage()!=null)
+                        {
+                            String filename= Paths.get(candidate.getImage()).getFileName().toString();
                         %>
+                        <div>
+                            <img class="inline-block h-12 w-12 rounded-full"
+                                 src="img/<%=filename%>" >
+                        </div>
+                        <%}else{%>
                         <div>
                             <img class="inline-block h-12 w-12 rounded-full"
                                  src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" >
                         </div>
+                        <%}%>
                         <div class="ml-3">
                             <p class="text-base leading-6 font-medium text-gray-800">
                                 <% out.println(candidate.getFirstNameCan() + " " + candidate.getLastNameCan()); %>
@@ -118,22 +136,22 @@
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                               </svg>
                           </span>
-                       <%
-                           CandidateDAO candidateDAO=null;
-                           try{
-                               candidateDAO=DaoInstance.daoFactory.getCandidateDAO();
-                           }
-                           catch (SQLException e) {
-                               e.printStackTrace();
-                           }
-                           int hasPost=(candidate!=null) ? candidateDAO.hasPost(candidate.getIdCan()) : -1;
-                       %>
+                        <%
+                            CandidateDAO candidateDAO=null;
+                            try{
+                                candidateDAO=DaoInstance.daoFactory.getCandidateDAO();
+                            }
+                            catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            int hasPost=(candidate!=null) ? candidateDAO.hasPost(candidate.getIdCan()) : -1;
+                        %>
                         <span class="mx-4 text-sm font-normal">
                               <%=(hasPost==0)? "Add": "Edit" %> Candidature
                           </span>
                     </a>
                     <%}%>
-                   <% if(candidate!=null){%>
+                    <% if(candidate!=null){%>
                     <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="GetProfileCand?idCandidat=<%=candidate.getIdCan()%>">
                           <span class="text-left">
                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
@@ -145,7 +163,7 @@
                           </span>
                     </a>
                     <%
-                        }else if(recruiter!=null){
+                    }else if(recruiter!=null){
                     %>
                     <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="GetProfileRec?idRecruiter=<%=recruiter.getIdRec()%>">
                           <span class="text-left">
@@ -172,24 +190,30 @@
                     </a>
                     <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
                           <span class="text-left">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                               </svg>
                           </span>
                         <span class="mx-4 text-sm font-normal">
-                              Conversations
+                              Conversation
                           </span>
                     </a>
-                    <a class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="#">
+
+                    <% if(candidate!=null){%>
+                    <a
+                            class="w-full uppercase text-gray-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500" href="GetRecruiters">
                           <span class="text-left">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-                              </svg>
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6" viewBox="0 0 20 20"
+                                  fill="currentColor">
+                              <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                              <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                            </svg>
                           </span>
                         <span class="mx-4 text-sm font-normal">
-                              See Recruiters Profile's
+                              Our Recruiters
                           </span>
                     </a>
+                    <%}%>
                 </div>
             </nav>
         </div>
@@ -227,7 +251,7 @@
                         e.printStackTrace();
                     }
                     int hasPost=(candidate!=null) ? candidateDAO.hasPost(candidate.getIdCan()) : -1;
-                   if(hasPost==0){
+                    if(hasPost==0){
                 %>
                 <form method="post" action="AddPost" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                       enctype="multipart/form-data">
@@ -284,13 +308,13 @@
                     </button>
                 </form>
                 <%}else if(hasPost==1){
-                       Post currentPost=null;
-                       for(int i=0;i<postList.size();i++){
-                           if(postList.get(i).getIdCandidat()==candidate.getIdCan()) {
-                               currentPost=postList.get(i);
-                               break;
-                           }
-                           }
+                    Post currentPost=null;
+                    for(int i=0;i<postList.size();i++){
+                        if(postList.get(i).getIdCandidat()==candidate.getIdCan()) {
+                            currentPost=postList.get(i);
+                            break;
+                        }
+                    }
                 %>
                 <form method="post" action="UpdatePost" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                       enctype="multipart/form-data">
@@ -301,7 +325,7 @@
                             Describe Yourself</label>
                         <textarea type="text" name="post" id="post1"
                                   class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
-                                  placeholder="<%=currentPost.getPost()%>" required ></textarea>
+                                  required ><%=currentPost.getPost()%></textarea>
                     </div>
                     <div>
                         <label for="category" class="block mb-2 text-sm font-medium text-gray-400">
@@ -337,13 +361,15 @@
                                     " required/>
                     </div>
 
-                    <input type="hidden" name="idCandidate"
-                           value=<%=candidate.getIdCan()%>
+                    <input type="hidden" name="idPost"
+                           value=<%=currentPost.getIdPost()%>
                     >
-
+                    <input type="hidden" name="idCandidate"
+                           value=<%=currentPost.getIdCandidat()%>
+                    >
                     <button type="submit"
                             class="w-full text-white focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-emerald-700 hover:bg-emerald-600 focus:ring-green-700">
-                        Post Your Candidature
+                        Update Your Candidature
                     </button>
                 </form>
                 <%
@@ -394,9 +420,20 @@
                 <div class=" flex w-full border-b-2 border-gray-300 py-3">
                     <a href="GetProfileCand?idCandidat=<%=postList.get(i).getIdCandidat()%>"  class="group block">
                         <div class="flex items-center">
+                            <% if(postList.get(i).getImgCand()!=null)
+                            {
+                                String filename= Paths.get(postList.get(i).getImgCand()).getFileName().toString();
+                            %>
+                            <div>
+                                <img class="inline-block h-12 w-12 rounded-full" src="img/<%=filename%>" alt="">
+                            </div>
+                            <%
+                                }else
+                                {%>
                             <div>
                                 <img class="inline-block h-12 w-12 rounded-full" src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" alt="">
                             </div>
+                            <%}%>
                             <div class="ml-3">
                                 <p class="text-base leading-6 font-medium text-gray-800">
                                     <%=postList.get(i).getFirstnameCand()%> <%=postList.get(i).getLastnameCand()%>

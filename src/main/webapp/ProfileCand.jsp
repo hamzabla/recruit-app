@@ -74,23 +74,26 @@
                     <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                         <% if (candidatePrf.getImage()!=null)
                         {
+                            String filename= Paths.get(candidatePrf.getImage()).getFileName().toString();
                         %>
                         <div class="relative">
-                            <img src="<%="img/" + Paths.get(candidatePrf.getImage()).getFileName().toString()%>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="img/<%=filename%>"
+                                 class="shadow-xl w-48 h-48 object-cover rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <% }else
                         {
                         %>
                         <div class="relative">
-                            <img src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg"
+                                 class="shadow-xl w-48 h-48 object-cover rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <%
-                        }
+                            }
                         %>
                     </div>
                     <% if(candidate!=null){
                         if (candidatePrf.getIdCan()==candidate.getIdCan())
-                    {
+                        {
                     %>
                     <!--start edit -->
                     <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
@@ -120,7 +123,7 @@
                                         <form method="post" action="UpdateProfileCan" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                                               enctype="multipart/form-data">
                                             <h3 class="text-xl font-medium text-white">Update Your Profile :</h3>
-                                             <input  value="<%=candidate.getIdCan()%>" name="idCandidate" hidden/>
+                                            <input  value="<%=candidate.getIdCan()%>" name="idCandidate" hidden/>
                                             <div>
                                                 <label for="password"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
@@ -186,7 +189,7 @@
                     </div>
                     <!--end edit profile-->
                     <%
-                        }
+                            }
                         }
                     %>
                     <div class=" w-full lg:w-4/12 px-4 lg:order-1">
@@ -195,7 +198,7 @@
 
                 <div class="text-center mt-12">
                     <h3 class="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
-                       <%=candidatePrf.getFirstNameCan()%> <%=candidatePrf.getLastNameCan()%>
+                        <%=candidatePrf.getFirstNameCan()%> <%=candidatePrf.getLastNameCan()%>
                     </h3>
                     <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                         <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>

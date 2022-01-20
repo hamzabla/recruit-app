@@ -10,12 +10,13 @@ public class Post {
     private String firstnameCand;
     private String lastnameCand;
     private String category;
+    private String imgCand;
 
     public Post() {
 
     }
 
-    public Post(int idPost, String post,String video,int idCategory, int idCandidat,   String firstnameCand, String lastnameCand, String category) {
+    public Post(int idPost, String post,String video,int idCategory, int idCandidat,   String firstnameCand, String lastnameCand, String category,String imgCand) {
         this.idPost = idPost;
         this.idCandidat = idCandidat;
         this.post = post;
@@ -24,6 +25,15 @@ public class Post {
         this.firstnameCand = firstnameCand;
         this.lastnameCand = lastnameCand;
         this.category = category;
+        this.imgCand=imgCand;
+    }
+
+    public String getImgCand() {
+        return imgCand;
+    }
+
+    public void setImgCand(String imgCand) {
+        this.imgCand = imgCand;
     }
 
     public String getFirstnameCand() {
