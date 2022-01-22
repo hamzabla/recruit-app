@@ -12,4 +12,5 @@ public interface RecruiterDAO {
     public int emailExist(String email);
     public Recruiter getRecruiterById(int idRecuiter);
     public List<Recruiter> getAllRecruiters();
+    public int updateRecruiter(Recruiter recruiter);
 }

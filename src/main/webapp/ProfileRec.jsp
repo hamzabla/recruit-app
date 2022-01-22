@@ -1,4 +1,5 @@
-<%@ page import="com.app.models.Candidate" %><%--
+<%@ page import="com.app.models.Candidate" %>
+<%@ page import="java.nio.file.Paths" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 18/01/2022
@@ -71,17 +72,20 @@
             <div class="px-6">
                 <div class="flex flex-wrap justify-center">
                     <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                        <% if (recruiterPrf.getImg()!=null)
+                        <%if(recruiterPrf.getImg()!=null)
                         {
+                            String filename= Paths.get(recruiterPrf.getImg()).getFileName().toString();
                         %>
                         <div class="relative">
-                            <img src="<%=recruiterPrf.getImg()%>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="img/<%=filename%>"
+                                 class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <% }else
                         {
                         %>
                         <div class="relative">
-                            <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                            <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                                 class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
                         </div>
                         <%
                             }
@@ -116,40 +120,34 @@
                                                 </svg>
                                             </button>
                                         </div>
-                                        <form method="post" action="UpdateProfileCan" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
+                                        <form method="post" action="UpdateProfileRec" class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8"
                                               enctype="multipart/form-data">
                                             <h3 class="text-xl font-medium text-white">Update Your Profile :</h3>
+                                            <input  value="<%=recruiter.getIdRec()%>" name="idRecruiter" hidden/>
                                             <div>
                                                 <label for="password"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
                                                     Your Password</label>
-                                                <input type="password" name="password" id="password"
+                                                <input type="password" name="password" id="password" value="<%=recruiter.getPasswordRec()%>"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
                                                        placeholder="Enter new password" required />
                                             </div>
+
                                             <div>
-                                                <label for="location"
+                                                <label for="experience"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
-                                                    Your Location</label>
-                                                <input type="text" name="location" id="location"
+                                                    Years of experience</label>
+                                                <input type="number" name="experience" id="experience" value="<%=recruiter.getExperienceRec()%>"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
-                                                       placeholder="Enter your whereabouts" required />
+                                                       placeholder="Enter your years or experience" required />
                                             </div>
                                             <div>
-                                                <label for="formation"
+                                                <label for="entreprise"
                                                        class="block mb-2 text-sm font-medium text-gray-300">
-                                                    Your degree</label>
-                                                <input type="text" name="formation" id="formation"
+                                                    Your Enterprise</label>
+                                                <input type="text" name="entreprise" id="entreprise" value="<%=recruiter.getEntrepriseRec()%>"
                                                        class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
-                                                       placeholder="Enter your degree or formation" required />
-                                            </div>
-                                            <div>
-                                                <label for="school"
-                                                       class="block mb-2 text-sm font-medium text-gray-300">
-                                                    Your School</label>
-                                                <input type="text" name="school" id="school"
-                                                       class="border text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 w-full p-2.5 bg-gray-600 border-gray-500 text-white"
-                                                       placeholder="Enter your degree or formation" required />
+                                                       placeholder="Enter the entreprise where you are currently working" required />
                                             </div>
                                             <div>
                                                 <label for="description"
