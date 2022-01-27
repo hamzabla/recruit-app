@@ -26,7 +26,7 @@ public class PostDaoImp implements PostDAO {
 
     public int addPost(Post post){
         try {
-            query="INSERT INTO candidature_post Values (null, ?, ?, ?, ?)";
+            query="INSERT INTO candidature_post Values (null, ?, ?, ?, ?,null)";
             ps=con.prepareStatement(query);
             ps.setString(1,post.getPost());
             ps.setString(2,post.getVideo());
@@ -57,10 +57,11 @@ public class PostDaoImp implements PostDAO {
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getInt(5),
-                        rs.getString(6),
+                        rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10)
                 );
                 postList.add(post);
             }
@@ -87,10 +88,11 @@ public class PostDaoImp implements PostDAO {
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getInt(5),
-                        rs.getString(6),
+                        rs.getInt(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10)
                 );
                 postListByCategory.add(post);
             }
@@ -128,6 +130,46 @@ public class PostDaoImp implements PostDAO {
         try {
             ps= con.prepareStatement(query);
             ps.setInt(1,idPost);
+            int i =ps.executeUpdate();
+            if(i>0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Connection Error"+e);
+        }
+        return -1;
+    }
+
+    @Override
+    public int incrementPostLike(int id) {
+        query="UPDATE candidature_post SET likes=likes+1 WHERE post_id=?";
+        try {
+            ps= con.prepareStatement(query);
+            ps.setInt(1,id);
+            int i =ps.executeUpdate();
+            if(i>0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Connection Error"+e);
+        }
+        return -1;
+    }
+
+    @Override
+    public int decrementPostLike(int id) {
+        query="UPDATE candidature_post SET likes=likes-1 WHERE post_id=?";
+        try {
+            ps= con.prepareStatement(query);
+            ps.setInt(1,id);
             int i =ps.executeUpdate();
             if(i>0){
                 return 1;

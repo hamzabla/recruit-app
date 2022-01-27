@@ -1,12 +1,15 @@
 package com.app.dao;
 
 import com.app.models.Candidate;
+import com.app.models.Post;
 import com.app.models.Recruiter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CandidateDaoImp implements CandidateDAO {
     private Connection con;
@@ -181,5 +184,34 @@ public class CandidateDaoImp implements CandidateDAO {
         return -1;
     }
 
+    public List<Candidate> getAllCandidates(){
+        query =" select * from candidate;";
+        try {
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<Candidate> candidateList = new ArrayList<>();
+            while (rs.next()) {
+                Candidate candidate = new Candidate(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11),
+                        rs.getString(12)
+                );
+                candidateList.add(candidate);
+            }
+            return candidateList;
+        } catch (Exception e) {
+            System.out.println("Connection Error" + e);
+        }
+        return null;
+    }
 
 }

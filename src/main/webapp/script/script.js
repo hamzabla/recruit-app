@@ -1,4 +1,3 @@
-
 const categories = [
     {
         id: 1,
@@ -29,14 +28,9 @@ const categories = [
         id: 6,
         img: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZGVzaWduaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
         name: "Design"
-     }
+    }
 ];
 
-// {
-//     id: 5,
-//         img: "https://media.istockphoto.com/photos/putting-in-the-dedication-to-build-her-dreams-picture-id1298550035?b=1&k=20&m=1298550035&s=170667a&w=0&h=xQmu1P5uZB3sNuqjM2CfVjLhrWhijYvy4C2v_W2wfSk=",
-//     name: "Engineering"
-// },
 const categories1 = categories.map(iterate);
 function iterate(value, index, array) {
     let x = `<div class='cursor-pointer h-60 w-80 flex flex-col justify-center items-center rounded-lg mb-8 hover:shadow-xl  ring-1 ring-gray-300 ' >
@@ -52,4 +46,3 @@ function iterate(value, index, array) {
             </div>`;
     document.getElementById("categories").innerHTML+=x;
 }
-

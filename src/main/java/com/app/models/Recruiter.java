@@ -21,7 +21,7 @@ public class Recruiter {
     public Recruiter() {
     }
 
-    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec, String sexeRec, String entrepriseRec, int experienceRec, String descriptionRec, String img, String contactEmail, String linkedUrl, String facebookUrl, String twitterUrl) {
+    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec,String entrepriseRec, String sexeRec , int experienceRec, String descriptionRec, String img, String contactEmail, String linkedUrl, String facebookUrl, String twitterUrl) {
         this.idRec = idRec;
         this.firstNameRec = firstNameRec;
         this.lastNameRec = lastNameRec;

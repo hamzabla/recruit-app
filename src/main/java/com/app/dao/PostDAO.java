@@ -10,4 +10,6 @@ public interface PostDAO {
     public List<Post> getAllPostsByCategory(int idCategory);
     public int updatePost(Post post);
     public int deletePost(int idPost);
+    public int incrementPostLike(int id);
+    public int decrementPostLike(int id);
 }

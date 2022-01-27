@@ -1,11 +1,12 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.app.models.Category" %>
 <%@ page import="com.app.dao.CandidateDAO" %>
 <%@ page import="com.app.controllers.DaoInstance" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="com.app.models.Post" %>
 <%@ page import="java.nio.file.Paths" %>
+<%@ page import="com.app.dao.PostDAO" %>
+<%@ page import="com.app.dao.LikesDAO" %>
+<%@ page import="com.app.models.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
@@ -13,6 +14,7 @@
 <html>
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Niramit:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -89,9 +91,9 @@
                         </div>
                         <% } %>
                         <% if(candidate!=null){
-                           if(candidate.getImage()!=null)
-                        {
-                            String filename= Paths.get(candidate.getImage()).getFileName().toString();
+                            if(candidate.getImage()!=null)
+                            {
+                                String filename= Paths.get(candidate.getImage()).getFileName().toString();
                         %>
                         <div>
                             <img class="inline-block h-12 w-12 rounded-full"
@@ -385,7 +387,6 @@
 
     <%--Start of candidate posts --%>
     <%
-
         if (postList!=null){
             int i=  (int) session.getAttribute("numPost");
     %>
@@ -417,7 +418,7 @@
                 %>
             </div>
             <div class="flex flex-col items-start mt-5 text-center lg:text-left px-8 md:px-12 lg:w-1/2 ">
-                <div class=" flex w-full border-b-2 border-gray-300 py-3">
+                <div class="flex items-center justify-between w-full border-b-2 border-gray-300 py-3">
                     <a href="GetProfileCand?idCandidat=<%=postList.get(i).getIdCandidat()%>"  class="group block">
                         <div class="flex items-center">
                             <% if(postList.get(i).getImgCand()!=null)
@@ -428,8 +429,8 @@
                                 <img class="inline-block h-12 w-12 rounded-full" src="img/<%=filename%>" alt="">
                             </div>
                             <%
-                                }else
-                                {%>
+                            }else
+                            {%>
                             <div>
                                 <img class="inline-block h-12 w-12 rounded-full" src="https://pbs.twimg.com/profile_images/1254779846615420930/7I4kP65u_400x400.jpg" alt="">
                             </div>
@@ -444,6 +445,71 @@
                             </div>
                         </div>
                     </a>
+                    <%
+                        LikesDAO likesDAO =null;
+                        try{
+                            likesDAO=DaoInstance.daoFactory.getLikesDao();
+                        }
+                        catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        if(candidate!=null){
+                            Like likeCan= likesDAO.getCandidateLikeByPostId(candidate.getIdCan(),postList.get(i).getIdPost());
+                            if (likeCan!=null){
+                    %>
+                    <a href="" class=" canUnlike flex items-center text-sm text-red-600 transition duration-350 ease-in-out"
+                       id="<%=likeCan.getLikeId()%>" about="<%=postList.get(i).getIdPost()%>" >
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                            <g>
+                                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path>
+                            </g>
+                        </svg>
+                        Unlike
+                    </a>
+                    <%
+                    }else{
+                    %>
+                    <a href="" class=" canLike flex items-center text-sm text-gray-600 hover:text-red-600 transition duration-350 ease-in-out"
+                       id="<%=postList.get(i).getIdPost()%>"  >
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                            <g>
+                                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path>
+                            </g>
+                        </svg>
+                        Like
+                    </a>
+                    <%
+                        }
+                    }
+                    else if(recruiter!=null){
+                        Like likeRec= likesDAO.getRecruiterLikeByPostId(recruiter.getIdRec(),postList.get(i).getIdPost());
+                        if (likeRec!=null){
+                    %>
+                    <a href="" class=" recUnlike flex items-center text-sm text-red-600 transition duration-350 ease-in-out"
+                       id="<%=likeRec.getLikeId()%>" about="<%=postList.get(i).getIdPost()%>" >
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                            <g>
+                                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path>
+                            </g>
+                        </svg>
+                        Unlike
+                    </a>
+                    <%
+                    }else {
+                    %>
+                    <a href="" class=" recLike flex items-center text-sm text-gray-600 hover:text-red-600 transition duration-350 ease-in-out"
+                       id="<%=postList.get(i).getIdPost()%>">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                            <g>
+                                <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"></path>
+                            </g>
+                        </svg>
+                        Like
+                    </a>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
                 <h2 class="mt-20 text-3xl font-semibold text-gray-800 md:text-4xl">Get To Know
                     <span class="text-emerald-600">Me.</span>
@@ -519,38 +585,6 @@
 </div>
 <%@ include file="includes/Footer.jsp" %>
 </body>
-
-<script>
-    var react = false;
-    function toggleReact() {
-        if (react) {
-            document.getElementById("view_react").setAttribute("class", "far fa-heart fa-2x")
-            react = false;
-        } else {
-            document.getElementById("view_react").setAttribute("class", "fas fa-heart text-red-600 fa-2x")
-            react = true;
-        }
-    }
-    var shown=false;
-    function toggleCategories(){
-        if(!shown) {
-            var categories = document.getElementById("categories");
-            categories.classList.remove("hidden");
-            shown=true;
-        }
-        else{
-            var categories = document.getElementById("categories");
-            categories.classList.add("hidden");
-            shown=false;
-        }
-    };
-    function openModal(){
-        var post_modal=document.getElementById("add-post");
-        post_modal.classList.remove("hidden");
-    };
-    function closeModal(){
-        var post_modal=document.getElementById("add-post");
-        post_modal.classList.add("hidden");
-    };
+<script type="text/javascript" src="script/home.js">
 </script>
 </html>

@@ -182,11 +182,29 @@
                     </div>
                     <!--end edit profile-->
                     <%
-                            }
+                    }else{
+                    %>
+                    <div class="w-full lg:w-4/12 mt-24 px-4 lg:order-3 lg:text-right lg:self-center">
+
+                    </div>
+                    <%
+                        }
+                    }else{
+                    %>
+                    <div class="w-full lg:w-4/12 mt-24 px-4 lg:order-3 lg:text-right lg:self-center">
+
+                    </div>
+                    <%
                         }
                     %>
-                    <div class=" w-full lg:w-4/12 px-4 lg:order-1">
-                    </div>
+                    <a href="/Home.jsp" class=" w-full lg:w-4/12 px-4 mt-4 lg:order-1">
+                        <button class="flex items-center px-6 py-2  transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                            </svg>
+                            <span class="ml-1"> home</span>
+                        </button>
+                    </a>
                 </div>
 
                 <div class="text-center mt-12">

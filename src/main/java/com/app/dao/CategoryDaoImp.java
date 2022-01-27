@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.models.Candidate;
 import com.app.models.Category;
 import com.app.models.Post;
 
@@ -43,5 +44,43 @@ public class CategoryDaoImp implements CategoryDAO {
             System.out.println("Connection Error" + e);
         }
         return null;
+    }
+
+    public int updateCategory(Category category){
+        query="UPDATE categories SET category=?, categoryDesciption=? WHERE idCategory=?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,category.getCategory());
+            ps.setString(2,category.getCategoryDesciption());
+            ps.setInt(3,category.getIdCategory());
+            int i =ps.executeUpdate();
+            if(i>0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Connection Error"+e);
+        }
+        return -1;
+    }
+
+    public int addCategory(Category category){
+        try {
+            query="INSERT INTO categories Values (null ,?, ?)";
+            ps=con.prepareStatement(query);
+            ps.setString(1,category.getCategory());
+            ps.setString(2,category.getCategoryDesciption());
+            int i=ps.executeUpdate();
+            if (i>0)
+                return 1;
+            else
+                return 0;
+        }catch(Exception e){
+            System.out.println("Connection error " +e );
+        }
+        return -1;
     }
 }
